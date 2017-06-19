@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+  <title>Data Science Pipeline</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="shortcut icon" href="/Version_2/Test_UI/polls/templates/polls/Near_Logo.ico" type="image/png"/>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<style>
+* {box-sizing: border-box}
+body {font-family: "Lato", sans-serif;}
+
+/* Style the tab */
+div.tab {
+    float: left;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+    width: 20%;
+    height: 300px;
+}
+
+/* Style the buttons inside the tab */
+div.tab button {
+    display: block;
+    background-color: inherit;
+    color: black;
+    padding: 22px 16px;
+    width: 100%;
+    border: none;
+    outline: none;
+    text-align: left;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 17px;
+}
+
+.transformer-button {
+    background-color: #cce /* Green */
+    border: #ccd;
+    color: black;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    width: 250px;
+    border-radius:8px
+}
+
+.remove-transformer-button {
+    background-color: #A52A2A /* Brown */
+    border: #ccd;
+    color: black;
+    padding: 10px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    width: 200px;
+    border-radius:8px
+}
+
+.box-button {
+    background-color: inherit /* Brown */
+    border: none;
+    color: black;
+    padding: 10px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    width: 200px;
+    border-radius:8px
+}
+
+/* Change background color of buttons on hover */
+div.tab button:hover {
+    background-color: #ddd;
+}
+
+/* Create an active/current "tab button" class */
+div.tab button.active {
+    background-color: #ccc;
+}
+
+.container {
+ width: 90%;
+ height: 600px;
+
+}
+
+.subtabcontent{
+ float: left;
+ width: 80%;
+ padding: 20px 12px;
+ border: 3px solid #ccd;
+
+ }
+
+.jumbotron{
+text-align: center;
+height: 20px
+padding: 15px 15px;
+ background-color: #ccd;
+
+}
+
+.info-div {
+
+    padding: 10px 10px;
+    border: 2px solid gray;
+    margin-top: 20 px ;
+}
+
+/* Style the tab content */
+.tabcontent {
+    float: left;
+    padding: 40px 12px;
+    //border: 1px solid #ccc;
+    width: 60%;
+    border-left: none;
+    height: 500px;
+}
+.control-group {
+	display: inline-block;
+	width: 200px;
+	height: 210px;
+	margin: 10px;
+	padding: 30px;
+	text-align: left;
+	vertical-align: top;
+	background: #fff;
+	box-shadow: 0 1px 2px rgba(0,0,0,.1);
+}
+.control {
+	font-size: 18px;
+	position: relative;
+	display: block;
+	margin-bottom: 15px;
+	padding-left: 30px;
+	cursor: pointer;
+}
+
+.control-small {
+	font-size: 12px;
+	position: relative;
+	display: block;
+	margin-bottom: 15px;
+	padding-left: 30px;
+	cursor: pointer;
+}
+
+.control input {
+	position: absolute;
+	z-index: -1;
+	opacity: 0;
+}
+.control__indicator {
+	position: absolute;
+	top: 2px;
+	left: 0;
+	width: 20px;
+	height: 20px;
+	background: #e6e6e6;
+}
+
+.control--radio .control__indicator {
+	border-radius: 50%;
+}
+
+/* Hover and focus states */
+.control:hover input ~ .control__indicator,
+.control input:focus ~ .control__indicator {
+	background: #ccc;
+}
+
+/* Checked state */
+.control input:checked ~ .control__indicator {
+	background: #2aa1c0;
+}
+
+/* Hover state whilst checked */
+.control:hover input:not([disabled]):checked ~ .control__indicator,
+.control input:checked:focus ~ .control__indicator {
+	background: #0e647d;
+}
+
+/* Disabled state */
+.control input:disabled ~ .control__indicator {
+	pointer-events: none;
+	opacity: .6;
+	background: #e6e6e6;
+}
+
+/* Check mark */
+.control__indicator:after {
+	position: absolute;
+	display: none;
+	content: '';
+}
+
+/* Show check mark */
+.control input:checked ~ .control__indicator:after {
+	display: block;
+}
+
+/* Checkbox tick */
+.control--checkbox .control__indicator:after {
+	top: 4px;
+	left: 8px;
+	width: 3px;
+	height: 8px;
+	transform: rotate(45deg);
+	border: solid #fff;
+	border-width: 0 2px 2px 0;
+}
+
+/* Disabled tick colour */
+.control--checkbox input:disabled ~ .control__indicator:after {
+	border-color: #7b7b7b;
+}
+
+/* Radio button inner circle */
+.control--radio .control__indicator:after {
+	top: 7px;
+	left: 7px;
+	width: 6px;
+	height: 6px;
+	border-radius: 50%;
+	background: #fff;
+}
+
+/* Disabled circle colour */
+.control--radio input:disabled ~ .control__indicator:after {
+	background: #7b7b7b;
+}
+span:after,
+span:before{
+    content:"\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0";
+    text-decoration:line-through;
+}
+
+.optionGroup {
+    font-weight: bold;
+
+}
+
+.category, .item, .chzn-container-single .chzn-single {
+    font-family: sans-serif;}
+
+.category {font-weight: bold;}
+
+.chzn-results li.item {padding-left: 25px;}
+
+      #map {
+        height: 500px;
+        width: 100%;
+       }
+
+
+</style>
+</head>
+<body>
+
+<div class="container">
+   <div class="row" >
+       <div class="col-md-12" style="background:white; padding: 10px 10px; border: 0px solid #ccc; border-radius:0px; height: 70px" >
+           <div class="row">
+               <div class="col-md-4 ">
+                  <p><font size="8"><code>Grid-Unlock</code></font></p>
+               </div>
+
+               <div class="col-md-1 col-md-offset-5">
+                   <a class="btn btn-primary" href="user_form" role="button">Traffic Update</a>
+               </div>
+               <div class="col-md-1">
+                   <a class="btn btn-primary" href="user_form" role="button" style="margin-left:15px">Sign Up</a>
+               </div>
+           </div>
+
+       </div>
+   </div>
+
+   <div class="row" >
+       <div class="col-md-12" style="background:lavender; padding: 10px 10px; border: 1px solid #ccc; border-radius:4px; height: 200px" >
+
+           {% load static %}
+           <img src="{% static 'images.jpeg' %}" alt="My image"/>
+       </div>
+   </div>
+
+
+
+
+
+
+    <div class="row" >
+       <div class="col-md-4" style="background:white; padding: 10px 10px; border: 1px solid #ccc; border-radius:4px; height: 500px" >
+         <h2> Enter your route </h2>
+        <form action="callbacks" method="post"  >
+          {% csrf_token %}
+        </form>
+
+          <form  id="form1" method="post">
+              {% csrf_token %}
+              Enter Starting Point: <input type="text" name="starting_point" id="start" style="border-radius:4px"></br>
+
+              Enter Ending Point:  <input type="text" name="ending_point" id="end" style="border-radius:4px"></br>
+              Enter Mobile Number:  <input type="text" name="mobile_no" id="mobile" style="border-radius:4px"></br>
+          </form>
+
+
+          <input type="submit" value="Submit" onclick="form_submit()"/>
+
+       </div>
+
+    <div class="col-md-8">
+
+
+    <div id="map"></div>
+
+
+
+    <script>
+      function initMap() {
+        var directionsService = new google.maps.DirectionsService;
+        var directionsDisplay = new google.maps.DirectionsRenderer;
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 8,
+          center: {lat: 12.9716, lng: 77.5946}
+        });
+        directionsDisplay.setMap(map);
+
+        var onChangeHandler = function() {
+          calculateAndDisplayRoute(directionsService, directionsDisplay);
+        };
+        console.log("here",document.getElementById('start'))
+        document.getElementById('start').addEventListener('change', onChangeHandler);
+        document.getElementById('end').addEventListener('change', onChangeHandler);
+      }
+
+
+
+      function calculateAndDisplayRoute(directionsService, directionsDisplay) {
+        console.log(document.getElementById('start').value)
+        console.log(document.getElementById('end').value)
+        directionsService.route({
+          origin: document.getElementById('start').value,
+          destination: document.getElementById('end').value,
+          travelMode: 'DRIVING'
+        }, function(response, status) {
+          if (status === 'OK') {
+            directionsDisplay.setDirections(response);
+          }
+        });
+      }
+
+      function form_submit() {
+
+      console.log("in submit")
+      var frm1 = document.getElementById('form1')
+      console.log(frm1)
+      frm1.action = 'callbacks'
+      frm1.submit()
+      }
+
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY&callback=initMap">
+    </script>
+
+    </div>
+    </div>
+
+    <div class="row" >
+       <div class="col-md-12" style="background:white; padding: 10px 10px; border: 1px solid #ccc; border-radius:4px; height: 20px" >
+
+       </div>
+   </div>
+
+</div>
+
+
+
+</body>
+</html>
+
