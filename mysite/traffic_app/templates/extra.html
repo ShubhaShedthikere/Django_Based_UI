@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="panel panel-primary" >
+           <div class="panel-heading">
+               <p> <font size="5">Enter your route</font></p>
+           </div>
+           <div class="panel-body">
+            <form action="callbacks" method="post"  >
+            {% csrf_token %}
+            </form>
+
+          <form  id="form1" method="post">
+              {% csrf_token %}
+              <div class="row">
+                    <div class="col-md-8">
+
+                        <input type="text" name="starting_point" id="start" placeholder="Starting Address" style="border-radius:4px"></br>
+
+                    </div>
+                    </div>
+              <div class="row">
+              <div class="col-md-5"> Enter Ending Point:</div>
+              </div>
+
+              <div class="row">
+
+                    <div class="col-md-4"><input type="text" name="ending_point" id="end" placeholder="Ending Address" style="border-radius:4px"></br></div>
+              </div>
+
+              <div class="row">
+                    <div class="col-md-5"> Enter Mobile No:</div>
+                    <div class="col-md-4"><input type="text" name="mobile_no" placeholder="Your Mobile Number" id="mobile" style="border-radius:4px"></br></div>
+              </div>
+
+          </form>
+
+               <div class="row">
+                    <div class="col-md-12" style="background:white; padding: 10px 10px; border: 0px solid #ccc; border-radius:4px; height: 30px" ></div>
+
+               </div>
+
+          <div class="row">
+              <div class="col-md-5 col-md-offset-3">
+                <button type="button" class="btn btn-primary btn-block" onclick="form_submit()">Submit</button>
+              </div>
+          </div>
+
+
+
+       </div>
+       </div>
+       </div>
+
+</body>
+</html>

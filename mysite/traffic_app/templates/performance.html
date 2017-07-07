@@ -2,14 +2,16 @@
 <html>
 <head>
 
-  <title>Data Science Pipeline</title>
+  <title>Silk-Route-Performance</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <link rel="shortcut icon" href="/Version_2/Test_UI/polls/templates/polls/Near_Logo.ico" type="image/png"/>
+  <link rel="stylesheet" href="/static/css/circle.css">
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 
 <style>
 * {box-sizing: border-box}
@@ -239,11 +241,7 @@ padding: 15px 15px;
 .control--radio input:disabled ~ .control__indicator:after {
 	background: #7b7b7b;
 }
-span:after,
-span:before{
-    content:"\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0";
-    text-decoration:line-through;
-}
+
 
 .optionGroup {
     font-weight: bold;
@@ -340,6 +338,24 @@ span:before{
 .form-style-6 input[type="submit"]:hover,
 .form-style-6 input[type="button"]:hover{
     background: #2EBC99;
+
+.dark-area {
+                background-color: #666;
+                padding: 40px;
+                margin: 0 -40px 20px -40px;
+                clear: both;
+            }
+
+            .clearfix:before,.clearfix:after {content: " "; display: table;}
+            .clearfix:after {clear: both;}
+            .clearfix {*zoom: 1;}
+
+
+hr.style13 {
+	height: 10px;
+	border: 0;
+	box-shadow: 0 10px 10px -10px #8c8b8b inset;
+}
 </style>
 </head>
 <body>
@@ -410,7 +426,9 @@ span:before{
            </div>
        </div>
    </div>
-      <div class="panel panel-default ">
+
+
+    <div class="panel panel-default ">
 
 						<div class="panel-heading">
 
@@ -427,88 +445,274 @@ span:before{
 						<div class="panel-body">
 
 
+							<div class="tab-content">
+                                 <div class="row" style="background:#EDE3EF" >
+                                   <div class="col-md-12 col-md-offset-4" style="border-radius:4px; height:60px" >
+                                       <div><h3>Swipe Timings Trends</h3></div>
+                                   </div>
+                                 </div>
+                                   <div class="row" >
+                                   <div class="col-md-6" style="background:white; padding: 10px 10px 10px 10px; border: 0px solid #ccc; border-radius:4px; height:500px" >
+                                   <div id="in-out-time" style="width:500px;height:250px;"></div>
+                                   </div>
+                                   <div class="col-md-6" style="background:white; padding: 10px 10px 10px 10px; border: 0px solid #ccc; border-radius:4px; height:500px" >
+                                   <div id="time-hist" style="width:500px;height:350px;"></div>
+                                   </div>
+                                   </div>
+
+                                   <div class="row" style="background:#EDE3EF" >
+                                   <div class="col-md-12 col-md-offset-4" style=" border-radius:4px; height:60px" >
+                                       <div><h3>Traffic Footprint Trends</h3></div>
+                                   </div>
+                                   </div>
+                                   <div class="row" >
+                                   <div class="col-md-6" style="background:white; padding: 10px 10px 10px 10px; border: 0px solid #ccc; border-radius:4px; height:500px" >
+                                   <div id="bubble1" style="width:500px;height:250px;"></div>
+                                   </div>
+                                   <div class="col-md-6" style="background:white; padding: 10px 10px 10px 10px; border: 0px solid #ccc; border-radius:4px; height:500px" >
+                                   <div id="bubble2" style="width:500px;height:350px;"></div>
+                                   </div>
+                                   </div>
 
 
-                            <div class="row" >
-                                <div class="col-md-4" style="background:white; padding: 10px 10px; border: 1px solid #ccc; border-radius:4px; height: 500px" >
-                                <div class="form-style-6">
-                                    <h1>Enter Your Route</h1>
-                                    <form id="form1" method="post">
-                                      {% csrf_token %}
-                                    <input type="text" name="starting_point" id="start" placeholder="Starting Address" />
-                                    <input type="text" name="ending_point" id="end" placeholder="Destination Address" />
-                                    <input type="text" name="mobile_no" id="mobile" placeholder="Mobile Number" />
-                                    <input type="button" onclick="form_submit()" value="Submit" />
-                                    </form>
+                                   <div class="row" style="background:#EDE3EF" >
+                                   <div class="col-md-12 col-md-offset-4" style="border-radius:4px; height:60px" >
+                                       <div><h3>Traffic Footprint Scores</h3></div>
+                                   </div>
+                                   </div>
 
-                                </div>
-                                </div>
-                                <div class="col-md-8">
-                                <div id="map"></div>
+                                   <div class="row" >
+
+                                         <div class="col-md-5 col-md-offset-1" style="background:white; border: 0px solid #ccc; border-radius:4px; height:500px" >
+
+                                            <div class="row" >
+                                                <div class="col-md-12 col-md-offset-1" style="background:white;">
+                                                <h3> Company Score</h3>
+                                                </div>
+                                            </div>
+                                            <div class="row" >
+                                                <div class="c100 p50 big green">
+                                                <span>2.5</span>
+                                                <div class="slice">
+                                                <div class="bar"></div>
+                                                <div class="fill"></div>
+                                                </div>
+                                                </div>
+                                            </div>
+
+                                       </div>
+
+                                       <div class="col-md-5 col-md-offset-1" style="background:white;  border: 0px solid #ccc; border-radius:4px; height:500px" >
+
+                                            <div class="row" >
+                                                <div class="col-md-11 col-md-offset-1" style="background:white;">
+                                                <h3> City Score</h3>
+                                                </div>
+                                            </div>
+                                            <div class="row" >
+                                                <div class="c100 p74 big orange">
+                                                <span>3.7</span>
+                                                <div class="slice">
+                                                <div class="bar"></div>
+                                                <div class="fill"></div>
+                                                </div>
+                                                </div>
+                                            </div>
+
+                                       </div>
+                                   </div>
 
 
 
-    <script>
-      function initMap() {
-        var directionsService = new google.maps.DirectionsService;
-        var directionsDisplay = new google.maps.DirectionsRenderer;
-        var map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 8,
-          center: {lat: 12.9716, lng: 77.5946}
-        });
-        directionsDisplay.setMap(map);
-
-        var onChangeHandler = function() {
-          calculateAndDisplayRoute(directionsService, directionsDisplay);
-        };
-        console.log("here",document.getElementById('start'))
-        document.getElementById('start').addEventListener('change', onChangeHandler);
-        document.getElementById('end').addEventListener('change', onChangeHandler);
-      }
 
 
 
-      function calculateAndDisplayRoute(directionsService, directionsDisplay) {
-        console.log(document.getElementById('start').value)
-        console.log(document.getElementById('end').value)
-        directionsService.route({
-          origin: document.getElementById('start').value,
-          destination: document.getElementById('end').value,
-          travelMode: 'DRIVING'
-        }, function(response, status) {
-          if (status === 'OK') {
-            directionsDisplay.setDirections(response);
-          }
-        });
-      }
 
-      function form_submit() {
-
-      console.log("in submit")
-      var frm1 = document.getElementById('form1')
-      console.log(frm1)
-      frm1.action = 'callbacks'
-      frm1.submit()
-      }
-
-    </script>
-    <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA9dePJRIvxYDBGK79iJuv2Qkju7zUU2Kg&callback=initMap">
-    </script>
-
+                            </div>
+                        </div>
     </div>
-    </div>
-    </div>
+
 
     <div class="row" >
        <div class="col-md-12" style="background:white; padding: 10px 10px; border: 1px solid #ccc; border-radius:4px; height: 20px" >
 
        </div>
-   </div>
+    </div>
 
+</div>
 </div>
 
 
+<script>
+Plotly.d3.csv('/static/simulated_swipe_times.csv', function(rows){
+    var trace1 = {
+      type: 'scatter',                    // set the chart type
+      mode: 'lines',                      // connect points with lines
+      x: rows.map(function(row){          // set the x-data
+        return row['Date'];
+      }),
+      y: rows.map(function(row){          // set the x-data
+        return row['Swipe_In_Mean'];
+      }),
+      line: {                             // set the width of the line.
+        width: 1
+      },
+      name: "In time",
+      error_y: {
+        array: rows.map(function(row){    // set the height of the error bars
+          return row['Swipe_In_Std'];
+        }),
+        thickness: 0.5,                   // set the thickness of the error bars
+        width: 0
+      }
+    };
+
+    var trace2 = {
+      type: 'scatter',                    // set the chart type
+      mode: 'lines',                      // connect points with lines
+      x: rows.map(function(row){          // set the x-data
+        return row['Date'];
+      }),
+      y: rows.map(function(row){          // set the x-data
+        return row['Swipe_Out_Mean'];
+      }),
+      name: "Out time",
+      line: {                             // set the width of the line.
+        width: 1
+      },
+      error_y: {
+        array: rows.map(function(row){    // set the height of the error bars
+          return row['Swipe_Out_Std'];
+        }),
+        thickness: 0.5,                   // set the thickness of the error bars
+        width: 0
+      }
+    };
+
+    var layout = {
+      title: "Daily swipe timings ",
+      yaxis: {title: "Swipe Timings"},       // set the y axis title
+      xaxis: {
+        showgrid: false,                  // remove the x-axis grid lines
+        tickformat: "%B, %Y"              // customize the date format to "month, day"
+      },
+
+       height: 450,
+       width: 600
+    };
+    data = [trace1, trace2]
+    Plotly.plot(document.getElementById('in-out-time'), data, layout, {showLink: false});
+
+});
+
+
+
+Plotly.d3.csv('/static/swipe_histograms.csv', function(rows){
+
+    var trace1 = {
+        x: rows.map(function(row){          // set the x-data
+            return row['Time'];
+        }),
+        y: rows.map(function(row){          // set the y-data
+            return row['Swipe_In_1'];
+        }),
+        name: 'Swipe In: PS Team',
+        autobinx: true,
+        histnorm: "count",
+        marker: {
+            color: "rgba((93, 164, 214, 0.7)",
+            line: {
+            color:  "rgba((93, 164, 214, 1)",
+            width: 1
+            }
+        },
+        opacity: 0.5,
+        type: "bar",
+
+    };
+
+    var trace2 = {
+        x: rows.map(function(row){          // set the x-data
+            return row['Time'];
+        }),
+        y: rows.map(function(row){          // set the x-data
+            return row['Swipe_In_2'];
+        }),
+        autobinx: true,
+        marker: {
+                color: "rgba(255, 144, 14, 0.7)",
+                line: {
+                    color:  "rgba(255, 144, 14, 1)",
+                    width: 1
+                }
+        },
+        name: "Swipe In: DS Team",
+        opacity: 0.75,
+        type: "bar",
+
+    };
+
+    var trace3 = {
+        x: rows.map(function(row){          // set the x-data
+            return row['Time'];
+        }),
+        y: rows.map(function(row){          // set the x-data
+            return row['Swipe_In_3'];
+        }),
+        autobinx: true,
+        marker: {
+                color: "rgba(44, 160, 101, 0.7)",
+                line: {
+                    color:  "rgbargb(44, 160, 101,1)",
+                    width: 1
+                }
+        },
+        name: "Swipe In: Sales Team",
+        opacity: 0.75,
+        type: "bar",
+
+    };
+
+
+    var data = [trace1, trace2, trace3];
+    var layout = {
+        bargap: 0.05,
+        bargroupgap: 0.2,
+        barmode: "overlay",
+        title: "Time In - Time Out Histograms",
+        xaxis: {title: "Value"},
+        yaxis: {title: "Count"},
+        height: 450,
+        width: 600
+    };
+Plotly.newPlot('time-hist', data, layout);
+});
+
+var trace1 = {
+  x: [1, 2, 3, 4],
+  y: [10, 11, 12, 13],
+  mode: 'markers',
+  marker: {
+    color: ['rgb(93, 164, 214)', 'rgb(255, 144, 14)',  'rgb(44, 160, 101)', 'rgb(255, 65, 54)'],
+    opacity: [1, 0.8, 0.6, 0.4],
+    size: [40, 60, 80, 100]
+  }
+};
+
+var data = [trace1];
+
+var layout = {
+  title: 'Marker Size and Color',
+  showlegend: false,
+  height: 450,
+  width: 600
+
+};
+
+Plotly.newPlot('bubble1', data, layout);
+Plotly.newPlot('bubble2', data, layout);
+
+</script>
 
 </body>
 </html>
