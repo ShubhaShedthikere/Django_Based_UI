@@ -122,7 +122,7 @@ def login(request):
     return HttpResponse(template.render(context, request))
 
 
-def callbacks(request):
+'''def callbacks(request):
 
     if request.method == "POST":
         print request.POST
@@ -140,5 +140,5 @@ def callbacks(request):
         kafka_prod_obj.send(mobile_no, json.dumps(user_record))
 
         return HttpResponse("Thank you for using our App.\
-                             You will receive an SMS on traffic alert in case of congestion in %s"%starting_point)
+                             You will receive an SMS on traffic alert in case of congestion in %s"%starting_point)'''
 
