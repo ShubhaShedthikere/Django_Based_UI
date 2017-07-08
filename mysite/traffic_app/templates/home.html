@@ -489,6 +489,42 @@ hr.style13 {
                                         <div class="col-md-6" style="background:white; padding: 10px 10px 10px 10px; border: 0px solid #ccc; border-radius:4px; height:500px" >
                                         <div id="user" style="width:500px;height:250px;"></div>
                                         </div>
+                                        <div class="col-md-6" style="background:white; padding: 10px 10px 10px 10px; border: 0px solid #ccc; border-radius:4px; height:500px" >
+                                        <div class ="panel panel-info">
+                                            <div class="panel-heading">
+                                                Monthly Points Summary
+                                            </div>
+                                            <div class="panel-body" style="height:150px">
+                                                <div class="row">
+                                                    <div class="col-md-6" style="background:white; padding: 10px 10px 10px 10px; border: 0px solid #ccc; border-radius:4px; height:50px" >
+
+                                                        <div class="panel panel-info">
+                                                            <div class="panel-heading">Points Earned</div>
+                                                            <div class="panel-body"><strong>16000</strong> </div>
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div class="col-md-6" style="background:white; padding: 10px 10px 10px 10px; border: 0px solid #ccc; border-radius:4px; height:50px" >
+
+                                                        <div class="panel panel-warning">
+                                                            <div class="panel-heading">Points Missed</div>
+                                                            <div class="panel-body"><strong>23000</strong></div>
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                                <div class="row">
+                                                    <div class="col-md-6 col-md-offset-3" style="background:white; padding: 10px 10px 10px 10px; border: 0px solid #ccc; border-radius:4px; height:50px" >
+                                                     <a class="btn btn-primary" href="https://www.flipkart.com" role="button" style="margin-left:15px">Redeem Flipkart Points</a>
+                                                    </div>
+                                                </div>
+
+
+                                        </div>
+                                        </div>
 
                                      </div>
                                 </div>
@@ -793,7 +829,7 @@ hr.style13 {
 
 
     <div class="row" >
-       <div class="col-md-12" style="background:white; padding: 10px 10px; border: 1px solid #ccc; border-radius:4px; height: 20px" >
+       <div class="col-md-12" style="background:black; padding: 10px 10px; border: 1px solid #ccc; border-radius:4px; height: 20px" >
 
        </div>
     </div>
@@ -829,7 +865,8 @@ var trace1 = {
   line: {
     color: 'rgb(128, 0, 128)',
     width: 2
-  }
+  },
+  name:"Swipe-In Times"
 
 };
 
@@ -838,9 +875,9 @@ var trace2 = {
   y: [200,300,275,300,400,500,250],
   yaxis: 'y2',
   type: 'bar',
-  color: 'rgb(44, 160, 101)',
+  color: 'rgb(244, 160, 101)',
   opacity: 0.5,
-
+  name:"Points Earned"
 
 };
 
@@ -851,6 +888,7 @@ var trace3 = {
   type: 'bar',
   color: 'rgb(44, 160, 101)',
   opacity: 0.5,
+  name:"Points Missed"
 
 
 };
@@ -863,7 +901,7 @@ var layout = {
         tickformat: "%B, %Y"              // customize the date format to "month, day"
       },
       yaxis2: {
-      title: 'yaxis2 title',
+      title: ' Points Earned/Lost',
       titlefont: {color: 'rgb(148, 103, 189)'},
       tickfont: {color: 'rgb(148, 103, 189)'},
       overlaying: 'y',
@@ -1286,8 +1324,8 @@ Plotly.newPlot('time_hist_teams', data, layout);
 
 //------------------------------------------------------------------------------
 var trace1 = {
-  x: [4.5, 4, 3.2, 2.7],
-  y: [4.5, 4.5, 4.3, 4],
+  x: [3.8, 4, 4.2, 3.7],
+  y: [4.5, 4.5, 4.5, 4.5],
   mode: 'markers+text',
   text: ['DS', 'Sales ', 'PS', 'Marketing'],
   textfont : {
@@ -1302,19 +1340,36 @@ var trace1 = {
 };
 
 var trace2 = {
-  x: [0],
-  y: [0],
-  mode: 'scatter',
+  x: [0,5],
+  y: [0,5],
+  mode: 'marker',
 
   marker: {
-    color: 'rgb(93, 164, 214)',
-    opacity: [0]
+                color: "rgba(255, 255, 255, 0.7)",
+                line: {
+                    color:  "rgba(255, 255, 255,1)",
+                    width: 1
+                }
+        }
+};
 
+var trace3 = {
+  x: [2.9, 3.1, 3.1, 2.8],
+  y: [4.0, 4.0, 4.0, 4.0],
+  mode: 'markers+text',
+  text: ['DS', 'Sales ', 'PS', 'Marketing'],
+  textfont : {
+    family:'Times New Roman'
+  },
+  textposition: 'bottom center',
+  marker: {
+    color: ['rgb(93, 164, 214)', 'rgb(255, 144, 14)',  'rgb(44, 160, 101)', 'rgb(255, 65, 54)'],
+    opacity: [1, 0.8, 0.6, 0.4],
+    size: [45, 18, 21, 36]
   }
 };
 
-
-var data = [trace1,trace2];
+var data = [trace1,trace2,trace3];
 
 var layout = {
   title:"Traffic Footprint Score",

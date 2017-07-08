@@ -96,6 +96,23 @@ def home(request):
 
     template = loader.get_template('home.html')
     context = {}
+
+
+    if request.method == "POST":
+        print request.POST
+        starting_point = request.POST["starting_point"]
+        ending_point = request.POST["ending_point"]
+        mobile_no = request.POST["mobile_no"]
+        print "it is a post %s" % starting_point
+        print "destination %s" % ending_point
+        print "mobile_no %s" % mobile_no
+
+        user_record = {}
+        user_record["starting_point"] = starting_point
+        user_record["ending_point"] = ending_point
+        user_record["mobile_no"] = mobile_no
+        kafka_prod_obj.send(mobile_no, json.dumps(user_record))
+
     return HttpResponse(template.render(context, request))
 
 def login(request):
