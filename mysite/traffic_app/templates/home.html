@@ -1,0 +1,1272 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+  <title>Silk-Route-Performance</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="shortcut icon" href="/Version_2/Test_UI/polls/templates/polls/Near_Logo.ico" type="image/png"/>
+  <link rel="stylesheet" href="/static/css/circle.css">
+
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+<style>
+* {box-sizing: border-box}
+body {font-family: "Lato", sans-serif;}
+
+/* Style the tab */
+div.tab {
+    float: left;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+    width: 20%;
+    height: 300px;
+}
+
+/* Style the buttons inside the tab */
+div.tab button {
+    display: block;
+    background-color: inherit;
+    color: black;
+    padding: 22px 16px;
+    width: 100%;
+    border: none;
+    outline: none;
+    text-align: left;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 17px;
+}
+
+.transformer-button {
+    background-color: #cce /* Green */
+    border: #ccd;
+    color: black;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    width: 250px;
+    border-radius:8px
+}
+
+.remove-transformer-button {
+    background-color: #A52A2A /* Brown */
+    border: #ccd;
+    color: black;
+    padding: 10px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    width: 200px;
+    border-radius:8px
+}
+
+.box-button {
+    background-color: inherit /* Brown */
+    border: none;
+    color: black;
+    padding: 10px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    width: 200px;
+    border-radius:8px
+}
+
+/* Change background color of buttons on hover */
+div.tab button:hover {
+    background-color: #ddd;
+}
+
+/* Create an active/current "tab button" class */
+div.tab button.active {
+    background-color: #ccc;
+}
+
+.container {
+ width: 90%;
+ height: 600px;
+
+}
+
+.subtabcontent{
+ float: left;
+ width: 80%;
+ padding: 20px 12px;
+ border: 3px solid #ccd;
+
+ }
+
+.jumbotron{
+text-align: center;
+height: 20px
+padding: 15px 15px;
+ background-color: #ccd;
+
+}
+
+.info-div {
+
+    padding: 10px 10px;
+    border: 2px solid gray;
+    margin-top: 20 px ;
+}
+
+/* Style the tab content */
+.tabcontent {
+    float: left;
+    padding: 40px 12px;
+    //border: 1px solid #ccc;
+    width: 60%;
+    border-left: none;
+    height: 500px;
+}
+.control-group {
+	display: inline-block;
+	width: 200px;
+	height: 210px;
+	margin: 10px;
+	padding: 30px;
+	text-align: left;
+	vertical-align: top;
+	background: #fff;
+	box-shadow: 0 1px 2px rgba(0,0,0,.1);
+}
+.control {
+	font-size: 18px;
+	position: relative;
+	display: block;
+	margin-bottom: 15px;
+	padding-left: 30px;
+	cursor: pointer;
+}
+
+.control-small {
+	font-size: 12px;
+	position: relative;
+	display: block;
+	margin-bottom: 15px;
+	padding-left: 30px;
+	cursor: pointer;
+}
+
+.control input {
+	position: absolute;
+	z-index: -1;
+	opacity: 0;
+}
+.control__indicator {
+	position: absolute;
+	top: 2px;
+	left: 0;
+	width: 20px;
+	height: 20px;
+	background: #e6e6e6;
+}
+
+.control--radio .control__indicator {
+	border-radius: 50%;
+}
+
+/* Hover and focus states */
+.control:hover input ~ .control__indicator,
+.control input:focus ~ .control__indicator {
+	background: #ccc;
+}
+
+/* Checked state */
+.control input:checked ~ .control__indicator {
+	background: #2aa1c0;
+}
+
+/* Hover state whilst checked */
+.control:hover input:not([disabled]):checked ~ .control__indicator,
+.control input:checked:focus ~ .control__indicator {
+	background: #0e647d;
+}
+
+/* Disabled state */
+.control input:disabled ~ .control__indicator {
+	pointer-events: none;
+	opacity: .6;
+	background: #e6e6e6;
+}
+
+/* Check mark */
+.control__indicator:after {
+	position: absolute;
+	display: none;
+	content: '';
+}
+
+/* Show check mark */
+.control input:checked ~ .control__indicator:after {
+	display: block;
+}
+
+/* Checkbox tick */
+.control--checkbox .control__indicator:after {
+	top: 4px;
+	left: 8px;
+	width: 3px;
+	height: 8px;
+	transform: rotate(45deg);
+	border: solid #fff;
+	border-width: 0 2px 2px 0;
+}
+
+/* Disabled tick colour */
+.control--checkbox input:disabled ~ .control__indicator:after {
+	border-color: #7b7b7b;
+}
+
+/* Radio button inner circle */
+.control--radio .control__indicator:after {
+	top: 7px;
+	left: 7px;
+	width: 6px;
+	height: 6px;
+	border-radius: 50%;
+	background: #fff;
+}
+
+/* Disabled circle colour */
+.control--radio input:disabled ~ .control__indicator:after {
+	background: #7b7b7b;
+}
+
+
+.optionGroup {
+    font-weight: bold;
+
+}
+
+.category, .item, .chzn-container-single .chzn-single {
+    font-family: sans-serif;}
+
+.category {font-weight: bold;}
+
+.chzn-results li.item {padding-left: 25px;}
+
+      #map {
+        height: 500px;
+        width: 100%;
+       }
+
+
+
+.form-style-6{
+    font: 95% Arial, Helvetica, sans-serif;
+    max-width: 400px;
+    margin: 10px auto;
+    padding: 16px;
+    background: #F7F7F7;
+}
+.form-style-6 h1{
+    background: #43D1AF;
+    padding: 20px 0;
+    font-size: 140%;
+    font-weight: 300;
+    text-align: center;
+    color: #fff;
+    margin: -16px -16px 16px -16px;
+}
+.form-style-6 input[type="text"],
+.form-style-6 input[type="date"],
+.form-style-6 input[type="datetime"],
+.form-style-6 input[type="email"],
+.form-style-6 input[type="number"],
+.form-style-6 input[type="search"],
+.form-style-6 input[type="time"],
+.form-style-6 input[type="url"],
+.form-style-6 textarea,
+.form-style-6 select
+{
+    -webkit-transition: all 0.30s ease-in-out;
+    -moz-transition: all 0.30s ease-in-out;
+    -ms-transition: all 0.30s ease-in-out;
+    -o-transition: all 0.30s ease-in-out;
+    outline: none;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    width: 100%;
+    background: #fff;
+    margin-bottom: 4%;
+    border: 1px solid #ccc;
+    padding: 3%;
+    color: #555;
+    font: 95% Arial, Helvetica, sans-serif;
+}
+.form-style-6 input[type="text"]:focus,
+.form-style-6 input[type="date"]:focus,
+.form-style-6 input[type="datetime"]:focus,
+.form-style-6 input[type="email"]:focus,
+.form-style-6 input[type="number"]:focus,
+.form-style-6 input[type="search"]:focus,
+.form-style-6 input[type="time"]:focus,
+.form-style-6 input[type="url"]:focus,
+.form-style-6 textarea:focus,
+.form-style-6 select:focus
+{
+    box-shadow: 0 0 5px #43D1AF;
+    padding: 3%;
+    border: 1px solid #43D1AF;
+}
+
+.form-style-6 input[type="submit"],
+.form-style-6 input[type="button"]{
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    width: 100%;
+    padding: 3%;
+    background: #43D1AF;
+    border-bottom: 2px solid #30C29E;
+    border-top-style: none;
+    border-right-style: none;
+    border-left-style: none;
+    color: #fff;
+}
+.form-style-6 input[type="submit"]:hover,
+.form-style-6 input[type="button"]:hover{
+    background: #2EBC99;
+
+.dark-area {
+                background-color: #666;
+                padding: 40px;
+                margin: 0 -40px 20px -40px;
+                clear: both;
+            }
+
+            .clearfix:before,.clearfix:after {content: " "; display: table;}
+            .clearfix:after {clear: both;}
+            .clearfix {*zoom: 1;}
+
+
+hr.style13 {
+	height: 10px;
+	border: 0;
+	box-shadow: 0 10px 10px -10px #8c8b8b inset;
+}
+
+
+</style>
+</head>
+<body>
+
+<div class="container">
+   <div class="row" >
+       <div class="col-md-12" style="background:white; padding: 10px 10px; border: 0px solid #ccc; border-radius:0px; height: 70px" >
+           <div class="row">
+               <div class="col-md-4  ">
+                   <p><font size="10"><strong>Silk Route</strong></font></p>
+               </div>
+
+               <div class="col-md-1 col-md-offset-7">
+                   <a class="btn btn-primary" href="login" role="button" style="margin-left:15px">Log Out</a>
+               </div>
+           </div>
+       </div>
+   </div>
+   <div class="row">
+       <div class="col-md-4 ">
+           <p><font size="3">Driving Behavioural changes through Incentivisation</font></p>
+       </div>
+   </div>
+
+
+
+
+
+
+   <div class="row" >
+       <div class="col-md-12" style="background:black; padding: 10px 10px; border: 1px solid #ccc; border-radius:4px; height: 200px" >
+           <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                <!-- Indicators -->
+                <ol class="carousel-indicators">
+                    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                    <li data-target="#myCarousel" data-slide-to="1"></li>
+                    <li data-target="#myCarousel" data-slide-to="2"></li>
+                </ol>
+
+                <!-- Wrapper for slides -->
+                <div class="carousel-inner">
+                    <div class="item active">
+                    <img src="/static/images.jpeg" alt="Los Angeles" style="width:400px;height:180px">
+                    <div class="carousel-caption">
+                        <h3>Get Shopping Points!</h3>
+                        <p>Get the best route + Shop for More</p>
+                    </div>
+                    </div>
+
+                    <div class="item">
+                        <img src="/static/drive_save.png" alt="Chicago" style="width:400px;height:180px">
+                        <div class="carousel-caption">
+                        <h3>Take the best routes!</h3>
+                        <p>Earn as you go!!</p>
+                        </div>
+                    </div>
+
+                    <div class="item">
+                        <img src="/static/traffic_sensitive.png" alt="New York" style="width:400px;height:180px">
+                        <div class="carousel-caption">
+                        <h3>"Traffic-Sensitive" Branding</h3>
+                        <p>Make flexible hours culture really count!</p>
+                        </div>
+                    </div>
+                </div>
+           </div>
+       </div>
+   </div>
+
+
+       <div class="panel panel-default ">
+
+						<div class="panel-heading">
+
+							<div class="panel-title">
+
+								<ul class="nav nav-tabs">
+									<li class="active"><a href="#performance" data-toggle="tab"><i class="glyphicon glyphicon-home"></i> Home</a></li>
+									<li><a href="#home" data-toggle="tab"><i class="glyphicon glyphicon-stats"></i> Performance</a></li>
+                                    <li><a href="#traffic_update" data-toggle="tab"><i class="glyphicon glyphicon-stats"></i> Traffic Update</a></li>
+
+                                </ul>
+                            </div>
+                        </div>
+
+						<div class="panel-body">
+                            <div class="tab-content">
+                                <div class="tab-pane fade " id="home">
+                                    <div class="row" >
+                                        <div class="col-md-6" style="background:white; padding: 10px 10px 10px 10px; border: 0px solid #ccc; border-radius:4px; height:500px" >
+                                        <div id="user" style="width:500px;height:250px;"></div>
+                                        </div>
+
+                                     </div>
+                                </div>
+
+
+
+
+                                <div class="tab-pane fade in active" id="performance">
+                                    <div class="row" style="background:#EDE3EF" >
+                                   <div class="col-md-12 col-md-offset-4" style="border-radius:4px; height:60px" >
+                                       <div><h3>Traffic Footprint of the Company</h3></div>
+                                   </div>
+                                 </div>
+                                  <div class="row" >
+                                   <div class="col-md-6" style="background:white; padding: 10px 10px 10px 10px; border: 0px solid #ccc; border-radius:4px; height:500px" >
+                                   <div id="time_hist_comp" style="width:500px;height:250px;"></div>
+                                   </div>
+                                   <div class="col-md-6" style="background:white; padding: 10px 10px 10px 10px; border: 0px solid #ccc; border-radius:4px; height:500px" >
+                                   <div id="marker_comp" style="width:500px;height:350px;"></div>
+                                   </div>
+                                  </div>
+
+                                   <div class="row" style="background:#EDE3EF" >
+                                   <div class="col-md-12 col-md-offset-4" style=" border-radius:4px; height:60px" >
+                                       <div><h3>Traffic Footprint of the Teams</h3></div>
+                                   </div>
+                                   </div>
+                                   <div class="row" >
+                                   <div class="col-md-6" style="background:white; padding: 10px 10px 10px 10px; border: 0px solid #ccc; border-radius:4px; height:500px" >
+                                   <div id="time_hist_teams" style="width:500px;height:250px;"></div>
+                                   </div>
+                                   <div class="col-md-6" style="background:white; padding: 10px 10px 10px 10px; border: 0px solid #ccc; border-radius:4px; height:500px" >
+                                   <div id="marker_teams" style="width:500px;height:350px;"></div>
+                                   </div>
+                                   </div>
+
+
+                                   <div class="row" style="background:#EDE3EF" >
+                                   <div class="col-md-12 col-md-offset-4" style="border-radius:4px; height:60px" >
+                                       <div><h3>Traffic Footprint Scores</h3></div>
+                                   </div>
+                                   </div>
+
+                                   <div class="row" >
+
+                                         <div class="col-md-5 col-md-offset-1" style="background:white; border: 0px solid #ccc; border-radius:4px; height:400px" >
+
+                                            <div class="row" >
+                                                <div class="col-md-12 col-md-offset-1" style="background:white;">
+                                                <h3> Company Score</h3>
+                                                </div>
+                                            </div>
+                                            <div class="row" >
+                                                <div class="c100 p64 big green">
+                                                <span>3.2</span>
+                                                <div class="slice">
+                                                <div class="bar"></div>
+                                                <div class="fill"></div>
+                                                </div>
+                                                </div>
+                                            </div>
+
+                                       </div>
+
+                                       <div class="col-md-5 col-md-offset-1" style="background:white;  border: 0px solid #ccc; border-radius:4px; height:400px" >
+
+                                            <div class="row" >
+                                                <div class="col-md-11 col-md-offset-1" style="background:white;">
+                                                <h3> City Score</h3>
+                                                </div>
+                                            </div>
+                                            <div class="row" >
+                                                <div class="c100 p84 big orange">
+                                                <span>4.2</span>
+                                                <div class="slice">
+                                                <div class="bar"></div>
+                                                <div class="fill"></div>
+                                                </div>
+                                                </div>
+                                            </div>
+
+                                       </div>
+                                   </div>
+
+                                   <div class="row" style="background:#EDE3EF" >
+                                   <div class="col-md-12 col-md-offset-4" style="border-radius:4px; height:60px" >
+                                       <div><h3>Top Traffic Sensitive Folks</h3></div>
+                                   </div>
+                                   </div>
+
+                                    <div class="row" >
+
+                                         <div class="col-md-4 " style="background:white; padding: 10px 10px 10px 10px;border: 0px solid #ccc; border-radius:4px; height:400px" >
+                                             <div class="col-md-12 col-md-offset-2">
+                                                 <div class="row" >
+                                                 <img src="/static/santosh.png" alt="Los Angeles" style="width:200px;height:180px">
+                                                 </div>
+                                                 <div class="row">
+                                                      <div class="col-md-12 col-md-offset-1">
+                                                     Santosh Hegde
+                                                      </div>
+                                                 </div>
+                                                 <div class="row">
+                                                      <div class="col-md-12 ">
+                                                      Geo-Spatial Analysis Team
+                                                      </div>
+                                                 </div>
+
+                                                 <div class="row" >
+                                                     <div class="col-md-12 col-md-offset-1">
+                                                        <div class="c100 p54  green">
+                                                        <span>2.7</span>
+                                                        <div class="slice">
+                                                        <div class="bar"></div>
+                                                        <div class="fill"></div>
+                                                        </div>
+                                                        </div>
+                                                     </div>
+                                                 </div>
+
+                                              </div>
+                                         </div>
+
+                                         <div class="col-md-4 " style="background:white; padding: 10px 10px 10px 10px;border: 0px solid #ccc; border-radius:4px; height:400px" >
+                                             <div class="col-md-12 col-md-offset-2">
+                                                 <div class="row" >
+                                                 <img src="/static/hari.png" alt="Los Angeles" style="width:200px;height:180px">
+                                                 </div>
+                                                 <div class="row">
+                                                      <div class="col-md-12 col-md-offset-1">
+                                                      Haricharan Aragonda
+                                                      </div>
+                                                 </div>
+                                                 <div class="row">
+                                                      <div class="col-md-12 col-md-offset-1">
+                                                      Data Science Team
+                                                      </div>
+                                                 </div>
+                                                 <div class="row" >
+                                                     <div class="col-md-12 col-md-offset-1">
+                                                        <div class="c100 p60  green">
+                                                        <span>3</span>
+                                                        <div class="slice">
+                                                        <div class="bar"></div>
+                                                        <div class="fill"></div>
+                                                        </div>
+                                                        </div>
+                                                    </div>
+                                                 </div>
+
+                                              </div>
+                                         </div>
+
+                                         <div class="col-md-4 " style="background:white; padding: 10px 10px 10px 10px;border: 0px solid #ccc; border-radius:4px; height:400px" >
+                                             <div class="col-md-12 col-md-offset-2">
+                                                 <div class="row" >
+                                                 <img src="/static/shubha.png" alt="Los Angeles" style="width:200px;height:180px">
+                                                 </div>
+                                                 <div class="row">
+                                                      <div class="col-md-12 col-md-offset-1">
+                                                      Shubha S
+                                                      </div>
+                                                 </div>
+                                                 <div class="row">
+                                                      <div class="col-md-12 col-md-offset-1">
+                                                      Data Science Team
+                                                      </div>
+                                                 </div>
+                                                 <div class="row" >
+                                                    <div class="col-md-12 col-md-offset-1">
+                                                    <div class="c100 p62 green">
+                                                    <span>3.1</span>
+                                                    <div class="slice">
+                                                    <div class="bar"></div>
+                                                    <div class="fill"></div>
+                                                    </div>
+                                                    </div>
+                                                    </div>
+                                                 </div>
+
+                                              </div>
+                                         </div>
+
+
+                                    </div>
+
+
+
+                                </div>
+
+
+                                <div class="tab-pane fade" id="traffic_update">
+
+
+
+                                <div class="row" >
+                                <div class="col-md-4" style="background:white; padding: 10px 10px; border: 1px solid #ccc; border-radius:4px; height: 500px" >
+                                <div class="form-style-6">
+                                    <h1>Enter Your Route</h1>
+                                    <form id="form1" method="post">
+                                      {% csrf_token %}
+                                    <input type="text" name="starting_point" id="start" placeholder="Starting Address" />
+                                    <input type="text" name="ending_point" id="end" placeholder="Destination Address" />
+                                    <input type="text" name="mobile_no" id="mobile" placeholder="Mobile Number" />
+                                    <input type="button"  onclick="form_submit()" value="Submit" />
+
+                                    </form>
+
+
+
+
+                                </div>
+
+
+
+                                </div>
+                                <div class="col-md-8">
+                                <div id="map"></div>
+
+
+
+                                <script>
+                                     function initMap() {
+                                         var directionsService = new google.maps.DirectionsService;
+                                         var directionsDisplay = new google.maps.DirectionsRenderer;
+                                         var map = new google.maps.Map(document.getElementById('map'), {
+                                         zoom: 8,
+                                         center: {lat: 12.9716, lng: 77.5946}
+                                         });
+                                         directionsDisplay.setMap(map);
+
+                                          var onChangeHandler = function() {
+                                             calculateAndDisplayRoute(directionsService, directionsDisplay);
+                                              };
+                                              console.log("here",document.getElementById('start'))
+                                              document.getElementById('start').addEventListener('change', onChangeHandler);
+                                              document.getElementById('end').addEventListener('change', onChangeHandler);
+                                          }
+
+
+
+      function calculateAndDisplayRoute(directionsService, directionsDisplay) {
+        console.log(document.getElementById('start').value)
+        console.log(document.getElementById('end').value)
+        directionsService.route({
+          origin: document.getElementById('start').value,
+          destination: document.getElementById('end').value,
+          travelMode: 'DRIVING'
+        }, function(response, status) {
+          if (status === 'OK') {
+            directionsDisplay.setDirections(response);
+          }
+        });
+      }
+
+      function form_submit() {
+
+      console.log("in submit")
+      var frm1 = document.getElementById('form1')
+      console.log(frm1)
+      frm1.action = 'callbacks'
+      frm1.submit()
+      }
+
+    </script>
+                                <script async defer
+                                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA9dePJRIvxYDBGK79iJuv2Qkju7zUU2Kg&callback=initMap">
+                                </script>
+
+                                </div>
+                                </div>
+                                </div>
+
+                            </div>
+
+                    </div>
+
+
+
+
+
+       </div>
+
+
+
+
+    <div class="row" >
+       <div class="col-md-12" style="background:white; padding: 10px 10px; border: 1px solid #ccc; border-radius:4px; height: 20px" >
+
+       </div>
+    </div>
+
+
+</div>
+
+
+<script>
+
+var trace1 = {
+  x: ['06-06-2017', '07-06-2017', '08-06-2017', '09-06-2017','10-06-2017','11-06-2017','12-06-2017'],
+  y: [9.5, 10.25, 9.75, 9,8.5,8.25,9.15],
+  type: 'scatter',
+  opacity: 0.75,
+  mode: 'lines+markers',
+  marker: {
+    color: 'rgb(128, 0, 128)',
+    size: 10
+  },
+  line: {
+    color: 'rgb(128, 0, 128)',
+    width: 2
+  }
+
+};
+
+var trace2 = {
+  x: ['06-06-2017', '07-06-2017', '08-06-2017', '09-06-2017','10-06-2017','11-06-2017','12-06-2017'],
+  y: [200,300,275,300,400,500,250],
+  yaxis: 'y2',
+  type: 'bar',
+  color: 'rgb(44, 160, 101)',
+  opacity: 0.5,
+
+
+};
+
+var trace3 = {
+  x: ['06-06-2017', '07-06-2017', '08-06-2017', '09-06-2017','10-06-2017','11-06-2017','12-06-2017'],
+  y: [400,300,325,300,200,100,350],
+  yaxis: 'y2',
+  type: 'bar',
+  color: 'rgb(44, 160, 101)',
+  opacity: 0.5,
+
+
+};
+
+var layout = {
+      title: "Daily swipe timings ",
+      yaxis: {title: "Swipe Timings"},       // set the y axis title
+      xaxis: {
+        showgrid: false,                  // remove the x-axis grid lines
+        tickformat: "%B, %Y"              // customize the date format to "month, day"
+      },
+      yaxis2: {
+      title: 'yaxis2 title',
+      titlefont: {color: 'rgb(148, 103, 189)'},
+      tickfont: {color: 'rgb(148, 103, 189)'},
+      overlaying: 'y',
+      side: 'right',
+      legend : {
+              x: 1.5,
+              y: 1
+
+              }
+
+     },
+
+       height: 450,
+       width: 600,
+       barmode : 'stack'
+    };
+
+var data = [trace1, trace2,trace3];
+
+
+
+Plotly.newPlot('user', data, layout);
+
+Plotly.d3.csv('/static/simulated_swipe_times.csv', function(rows){
+    var trace1 = {
+      type: 'scatter',                    // set the chart type
+      mode: 'lines',                      // connect points with lines
+      x: rows.map(function(row){          // set the x-data
+        return row['Date'];
+      }),
+      y: rows.map(function(row){          // set the x-data
+        return row['Swipe_In_Mean'];
+      }),
+      line: {                             // set the width of the line.
+        width: 1
+      },
+      name: "In time",
+      error_y: {
+        array: rows.map(function(row){    // set the height of the error bars
+          return row['Swipe_In_Std'];
+        }),
+        thickness: 0.5,                   // set the thickness of the error bars
+        width: 0
+      }
+    };
+
+    var trace2 = {
+      type: 'scatter',                    // set the chart type
+      mode: 'lines',                      // connect points with lines
+      x: rows.map(function(row){          // set the x-data
+        return row['Date'];
+      }),
+      y: rows.map(function(row){          // set the x-data
+        return row['Swipe_Out_Mean'];
+      }),
+      name: "Out time",
+      line: {                             // set the width of the line.
+        width: 1
+      },
+      error_y: {
+        array: rows.map(function(row){    // set the height of the error bars
+          return row['Swipe_Out_Std'];
+        }),
+        thickness: 0.5,                   // set the thickness of the error bars
+        width: 0
+      }
+    };
+
+    var layout = {
+      title: "Daily swipe timings ",
+      yaxis: {title: "Swipe Timings"},       // set the y axis title
+      xaxis: {
+        showgrid: false,                  // remove the x-axis grid lines
+        tickformat: "%B, %Y"              // customize the date format to "month, day"
+      },
+
+       height: 450,
+       width: 600
+    };
+    data = [trace1, trace2]
+    Plotly.plot(document.getElementById('in-out-time'), data, layout, {showLink: false});
+
+});
+
+//------------------------------------------------------------------------------
+
+Plotly.d3.csv('/static/swipe_histograms1.csv', function(rows){
+
+    var trace1 = {
+        x: rows.map(function(row){          // set the x-data
+            return row['Time'];
+        }),
+        y: rows.map(function(row){          // set the y-data
+            return row['Swipe_In_All_Old'];
+        }),
+        name: 'Swipe In: Country (May)',
+        autobinx: true,
+        histnorm: "count",
+        marker: {
+            color: "rgba(255, 65, 54, 0.7)",
+            line: {
+            color:  "rgba(255, 65, 54, 1)",
+            width: 1
+            }
+        },
+        opacity: 0.75,
+        type: "bar",
+
+    };
+
+    var trace2 = {
+        x: rows.map(function(row){          // set the x-data
+            return row['Time'];
+        }),
+        y: rows.map(function(row){          // set the x-data
+            return row['Swipe_Out_All_Old'];
+        }),
+        autobinx: true,
+        marker: {
+                color: "rgba(255, 65, 54, 0.7)",
+                line: {
+                    color:  "rgba(255, 65, 54, 1)",
+                    width: 1
+                }
+        },
+        name: "Swipe Out: Company(May)",
+        opacity: 0.75,
+        type: "bar",
+
+    };
+
+    var trace3 = {
+        x: rows.map(function(row){          // set the x-data
+            return row['Time'];
+        }),
+        y: rows.map(function(row){          // set the x-data
+            return row['swipe_In_All'];
+        }),
+        autobinx: true,
+        marker: {
+                color: "rgba(44, 160, 101, 0.7)",
+                line: {
+                    color:  "rgba(44, 160, 101,1)",
+                    width: 1
+                }
+        },
+        name: "Swipe In: Company(June)",
+        opacity: 0.75,
+        type: "bar",
+
+    };
+
+    var trace4 = {
+        x: rows.map(function(row){          // set the x-data
+            return row['Time'];
+        }),
+        y: rows.map(function(row){          // set the x-data
+            return row['Swipe_Out_All'];
+        }),
+        autobinx: true,
+        marker: {
+                color: "rgba(44, 160, 101, 0.7)",
+                line: {
+                    color:  "rgba(44, 160, 101,1)",
+                    width: 1
+                }
+        },
+        name: "Swipe Out: Company (June)",
+        opacity: 0.75,
+        type: "bar",
+
+    };
+
+    var data = [trace1, trace2, trace3, trace4];
+    var layout = {
+        bargap: 0.05,
+        bargroupgap: 0.2,
+        barmode: "overlay",
+        title:"Swipe Timings Trends",
+        xaxis: {title: "Swipe Timings"},
+        yaxis: {title: "Number of Employees"},
+        height: 450,
+        width: 600
+    };
+Plotly.newPlot('time_hist_comp', data, layout);
+});
+
+//------------------------------------------------------------------------------
+var trace1 = {
+  x: [4.5, 4, 3.2, 2.7],
+  y: [4.5, 4.5, 4.3, 4],
+  mode: 'markers+text',
+  text: ['May', 'June', 'July', 'August'],
+  textfont : {
+    family:'Times New Roman'
+  },
+  textposition: 'bottom center',
+  marker: {
+    color: ['rgb(93, 164, 214)', 'rgb(255, 144, 14)',  'rgb(44, 160, 101)', 'rgb(255, 65, 54)'],
+    opacity: [1, 0.8, 0.6, 0.4],
+    size: [40, 40, 40, 40]
+  }
+};
+
+var trace2 = {
+  x: [0],
+  y: [0],
+  mode: 'scatter',
+
+  marker: {
+    color: 'rgb(93, 164, 214)',
+    opacity: [0]
+
+  }
+};
+
+
+var data = [trace1,trace2];
+
+var layout = {
+  title:"Traffic Footprint Score",
+  xaxis: {title: "Company Traffic Footprint Score"},
+  yaxis: {title: "City Traffic Footprint Score"},
+
+  showlegend: false,
+  height: 450,
+  width: 600
+
+};
+
+Plotly.newPlot('marker_comp', data, layout);
+
+//------------------------------------------------------------------------------
+
+Plotly.d3.csv('/static/swipe_histograms1.csv', function(rows){
+
+    var trace1 = {
+        x: rows.map(function(row){          // set the x-data
+            return row['Time'];
+        }),
+        y: rows.map(function(row){          // set the y-data
+            return row['Swipe_In_1'];
+        }),
+        name: 'Swipe In: DS Team',
+        autobinx: true,
+        histnorm: "count",
+        marker: {
+            color: "rgba(93, 164, 214, 0.7)",
+            line: {
+            color:  "rgba(93, 164, 214, 1)",
+            width: 1
+            }
+        },
+        opacity: 0.75,
+        type: "bar",
+
+    };
+
+    var trace2 = {
+        x: rows.map(function(row){          // set the x-data
+            return row['Time'];
+        }),
+        y: rows.map(function(row){          // set the y-data
+            return row['Swipe_Out_1'];
+        }),
+        name: 'Swipe Out: DS Team',
+        autobinx: true,
+        histnorm: "count",
+        marker: {
+            color: "rgba(93, 164, 214, 0.7)",
+            line: {
+            color:  "rgba(93, 164, 214, 1)",
+            width: 1
+            }
+        },
+        opacity: 0.75,
+        type: "bar",
+
+    };
+
+    var trace3 = {
+        x: rows.map(function(row){          // set the x-data
+            return row['Time'];
+        }),
+        y: rows.map(function(row){          // set the x-data
+            return row['Swipe_In_2'];
+        }),
+        autobinx: true,
+        marker: {
+                color: "rgba(255, 144, 14, 0.7)",
+                line: {
+                    color:  "rgba(255, 144, 14, 1)",
+                    width: 1
+                }
+        },
+        name: "Swipe In: Sales Team",
+        opacity: 0.75,
+        type: "bar",
+
+    };
+
+    var trace4 = {
+        x: rows.map(function(row){          // set the x-data
+            return row['Time'];
+        }),
+        y: rows.map(function(row){          // set the x-data
+            return row['Swipe_Out_2'];
+        }),
+        autobinx: true,
+        marker: {
+                color: "rgba(255, 144, 14,, 0.7)",
+                line: {
+                    color:  "rgba(255, 144, 14,, 1)",
+                    width: 1
+                }
+        },
+        name: "Swipe Out: Sales Team",
+        opacity: 0.75,
+        type: "bar",
+
+    };
+
+    var trace5 = {
+        x: rows.map(function(row){          // set the x-data
+            return row['Time'];
+        }),
+        y: rows.map(function(row){          // set the x-data
+            return row['Swipe_In_3'];
+        }),
+        autobinx: true,
+        marker: {
+                color: "rgba(44, 160, 101, 0.7)",
+                line: {
+                    color:  "rgba(44, 160, 101,1)",
+                    width: 1
+                }
+        },
+        name: "Swipe In: PS Team",
+        opacity: 0.75,
+        type: "bar",
+
+    };
+
+    var trace6 = {
+        x: rows.map(function(row){          // set the x-data
+            return row['Time'];
+        }),
+        y: rows.map(function(row){          // set the x-data
+            return row['Swipe_Out_3'];
+        }),
+        autobinx: true,
+        marker: {
+                color: "rgba(44, 160, 101, 0.7)",
+                line: {
+                    color:  "rgba(44, 160, 101,1)",
+                    width: 1
+                }
+        },
+        name: "Swipe In: PS Team",
+        opacity: 0.75,
+        type: "bar",
+
+    };
+
+    var trace7 = {
+        x: rows.map(function(row){          // set the x-data
+            return row['Time'];
+        }),
+        y: rows.map(function(row){          // set the x-data
+            return row['Swipe_In_4'];
+        }),
+        autobinx: true,
+        marker: {
+                color: "rgba(255, 65, 54, 0.7)",
+                line: {
+                    color:  "rgba(255, 65, 54,1)",
+                    width: 1
+                }
+        },
+        name: "Swipe In: Marketing Team",
+        opacity: 0.75,
+        type: "bar",
+
+    };
+    var trace8 = {
+        x: rows.map(function(row){          // set the x-data
+            return row['Time'];
+        }),
+        y: rows.map(function(row){          // set the x-data
+            return row['Swipe_Out_4'];
+        }),
+        autobinx: true,
+        marker: {
+                color: "rgba(255, 65, 54, 0.7)",
+                line: {
+                    color:  "rgba(255, 65, 54,1)",
+                    width: 1
+                }
+        },
+        name: "Swipe Out: Marketing Team",
+        opacity: 0.75,
+        type: "bar",
+
+    };
+
+
+    var data = [trace1, trace2, trace3, trace4, trace5,trace6,trace7,trace8];
+    var layout = {
+        bargap: 0.05,
+        bargroupgap: 0.2,
+        barmode: "overlay",
+        title:"Swipe Timings Trends across Teams",
+        xaxis: {title: "Swipe Timings"},
+        yaxis: {title: "Number of Employees"},
+        height: 450,
+        width: 600
+    };
+Plotly.newPlot('time_hist_teams', data, layout);
+});
+
+//------------------------------------------------------------------------------
+var trace1 = {
+  x: [4.5, 4, 3.2, 2.7],
+  y: [4.5, 4.5, 4.3, 4],
+  mode: 'markers+text',
+  text: ['DS', 'Sales ', 'PS', 'Marketing'],
+  textfont : {
+    family:'Times New Roman'
+  },
+  textposition: 'bottom center',
+  marker: {
+    color: ['rgb(93, 164, 214)', 'rgb(255, 144, 14)',  'rgb(44, 160, 101)', 'rgb(255, 65, 54)'],
+    opacity: [1, 0.8, 0.6, 0.4],
+    size: [45, 18, 21, 36]
+  }
+};
+
+var trace2 = {
+  x: [0],
+  y: [0],
+  mode: 'scatter',
+
+  marker: {
+    color: 'rgb(93, 164, 214)',
+    opacity: [0]
+
+  }
+};
+
+
+var data = [trace1,trace2];
+
+var layout = {
+  title:"Traffic Footprint Score",
+  xaxis: {title: "Team Traffic Footprint Score"},
+  yaxis: {title: "City Traffic Footprint Score"},
+
+  showlegend: false,
+  height: 450,
+  width: 600
+
+};
+
+Plotly.newPlot('marker_teams', data, layout);
+
+
+
+
+</script>
+
+</body>
+</html>
+

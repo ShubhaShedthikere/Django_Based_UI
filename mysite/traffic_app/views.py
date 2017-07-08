@@ -92,6 +92,12 @@ def performance(request):
     context = {}
     return HttpResponse(template.render(context, request))
 
+def home(request):
+
+    template = loader.get_template('home.html')
+    context = {}
+    return HttpResponse(template.render(context, request))
+
 def login(request):
 
     template = loader.get_template('login.html')
