@@ -428,15 +428,16 @@ hr.style13 {
    </div>
 
 
-    <div class="panel panel-default ">
+       <div class="panel panel-default ">
 
 						<div class="panel-heading">
 
 							<div class="panel-title">
 
 								<ul class="nav nav-tabs">
-									<li class="active"><a href="#letters" data-toggle="tab"><i class="glyphicon glyphicon-home"></i> Home</a></li>
-									<li><a href="#emails" data-toggle="tab"><i class="glyphicon glyphicon-stats"></i> Performance</a></li>
+									<li class="active"><a href="#home" data-toggle="tab"><i class="glyphicon glyphicon-home"></i> Home</a></li>
+									<li><a href="#perfomance" data-toggle="tab"><i class="glyphicon glyphicon-stats"></i> Performance</a></li>
+                                    <li><a href="#traffic_update" data-toggle="tab"><i class="glyphicon glyphicon-stats"></i> Traffic Update</a></li>
 
                                 </ul>
                             </div>
@@ -445,32 +446,35 @@ hr.style13 {
 						<div class="panel-body">
 
 
-							<div class="tab-content">
-                                 <div class="row" style="background:#EDE3EF" >
+
+
+                            <div class="tab-content">
+
+                                  <div class="row" style="background:#EDE3EF" >
                                    <div class="col-md-12 col-md-offset-4" style="border-radius:4px; height:60px" >
-                                       <div><h3>Swipe Timings Trends</h3></div>
+                                       <div><h3>Traffic Footprint of the Company</h3></div>
                                    </div>
                                  </div>
-                                   <div class="row" >
+                                  <div class="row" >
                                    <div class="col-md-6" style="background:white; padding: 10px 10px 10px 10px; border: 0px solid #ccc; border-radius:4px; height:500px" >
-                                   <div id="in-out-time" style="width:500px;height:250px;"></div>
+                                   <div id="time_hist_comp" style="width:500px;height:250px;"></div>
                                    </div>
                                    <div class="col-md-6" style="background:white; padding: 10px 10px 10px 10px; border: 0px solid #ccc; border-radius:4px; height:500px" >
-                                   <div id="time-hist" style="width:500px;height:350px;"></div>
+                                   <div id="marker_comp" style="width:500px;height:350px;"></div>
                                    </div>
-                                   </div>
+                                  </div>
 
                                    <div class="row" style="background:#EDE3EF" >
                                    <div class="col-md-12 col-md-offset-4" style=" border-radius:4px; height:60px" >
-                                       <div><h3>Traffic Footprint Trends</h3></div>
+                                       <div><h3>Traffic Footprint of the Teams</h3></div>
                                    </div>
                                    </div>
                                    <div class="row" >
                                    <div class="col-md-6" style="background:white; padding: 10px 10px 10px 10px; border: 0px solid #ccc; border-radius:4px; height:500px" >
-                                   <div id="bubble1" style="width:500px;height:250px;"></div>
+                                   <div id="time_hist_teams" style="width:500px;height:250px;"></div>
                                    </div>
                                    <div class="col-md-6" style="background:white; padding: 10px 10px 10px 10px; border: 0px solid #ccc; border-radius:4px; height:500px" >
-                                   <div id="bubble2" style="width:500px;height:350px;"></div>
+                                   <div id="marker_teams" style="width:500px;height:350px;"></div>
                                    </div>
                                    </div>
 
@@ -483,7 +487,7 @@ hr.style13 {
 
                                    <div class="row" >
 
-                                         <div class="col-md-5 col-md-offset-1" style="background:white; border: 0px solid #ccc; border-radius:4px; height:500px" >
+                                         <div class="col-md-5 col-md-offset-1" style="background:white; border: 0px solid #ccc; border-radius:4px; height:400px" >
 
                                             <div class="row" >
                                                 <div class="col-md-12 col-md-offset-1" style="background:white;">
@@ -491,8 +495,8 @@ hr.style13 {
                                                 </div>
                                             </div>
                                             <div class="row" >
-                                                <div class="c100 p50 big green">
-                                                <span>2.5</span>
+                                                <div class="c100 p64 big green">
+                                                <span>3.2</span>
                                                 <div class="slice">
                                                 <div class="bar"></div>
                                                 <div class="fill"></div>
@@ -502,7 +506,7 @@ hr.style13 {
 
                                        </div>
 
-                                       <div class="col-md-5 col-md-offset-1" style="background:white;  border: 0px solid #ccc; border-radius:4px; height:500px" >
+                                       <div class="col-md-5 col-md-offset-1" style="background:white;  border: 0px solid #ccc; border-radius:4px; height:400px" >
 
                                             <div class="row" >
                                                 <div class="col-md-11 col-md-offset-1" style="background:white;">
@@ -510,8 +514,8 @@ hr.style13 {
                                                 </div>
                                             </div>
                                             <div class="row" >
-                                                <div class="c100 p74 big orange">
-                                                <span>3.7</span>
+                                                <div class="c100 p84 big orange">
+                                                <span>4.2</span>
                                                 <div class="slice">
                                                 <div class="bar"></div>
                                                 <div class="fill"></div>
@@ -522,15 +526,113 @@ hr.style13 {
                                        </div>
                                    </div>
 
+                                   <div class="row" style="background:#EDE3EF" >
+                                   <div class="col-md-12 col-md-offset-4" style="border-radius:4px; height:60px" >
+                                       <div><h3>Top Traffic Sensitive Folks</h3></div>
+                                   </div>
+                                   </div>
+
+                                    <div class="row" >
+
+                                         <div class="col-md-4 " style="background:white; padding: 10px 10px 10px 10px;border: 0px solid #ccc; border-radius:4px; height:400px" >
+                                             <div class="col-md-12 col-md-offset-2">
+                                                 <div class="row" >
+                                                 <img src="/static/santosh.png" alt="Los Angeles" style="width:200px;height:180px">
+                                                 </div>
+                                                 <div class="row">
+                                                      <div class="col-md-12 col-md-offset-1">
+                                                     Santosh Hegde
+                                                      </div>
+                                                 </div>
+                                                 <div class="row">
+                                                      <div class="col-md-12 ">
+                                                      Geo-Spatial Analysis Team
+                                                      </div>
+                                                 </div>
+
+                                                 <div class="row" >
+                                                     <div class="col-md-12 col-md-offset-1">
+                                                        <div class="c100 p54  green">
+                                                        <span>2.7</span>
+                                                        <div class="slice">
+                                                        <div class="bar"></div>
+                                                        <div class="fill"></div>
+                                                        </div>
+                                                        </div>
+                                                     </div>
+                                                 </div>
+
+                                              </div>
+                                         </div>
+
+                                         <div class="col-md-4 " style="background:white; padding: 10px 10px 10px 10px;border: 0px solid #ccc; border-radius:4px; height:400px" >
+                                             <div class="col-md-12 col-md-offset-2">
+                                                 <div class="row" >
+                                                 <img src="/static/hari.png" alt="Los Angeles" style="width:200px;height:180px">
+                                                 </div>
+                                                 <div class="row">
+                                                      <div class="col-md-12 col-md-offset-1">
+                                                      Haricharan Aragonda
+                                                      </div>
+                                                 </div>
+                                                 <div class="row">
+                                                      <div class="col-md-12 col-md-offset-1">
+                                                      Data Science Team
+                                                      </div>
+                                                 </div>
+                                                 <div class="row" >
+                                                     <div class="col-md-12 col-md-offset-1">
+                                                        <div class="c100 p60  green">
+                                                        <span>3</span>
+                                                        <div class="slice">
+                                                        <div class="bar"></div>
+                                                        <div class="fill"></div>
+                                                        </div>
+                                                        </div>
+                                                    </div>
+                                                 </div>
+
+                                              </div>
+                                         </div>
+
+                                         <div class="col-md-4 " style="background:white; padding: 10px 10px 10px 10px;border: 0px solid #ccc; border-radius:4px; height:400px" >
+                                             <div class="col-md-12 col-md-offset-2">
+                                                 <div class="row" >
+                                                 <img src="/static/shubha.png" alt="Los Angeles" style="width:200px;height:180px">
+                                                 </div>
+                                                 <div class="row">
+                                                      <div class="col-md-12 col-md-offset-1">
+                                                      Shubha S
+                                                      </div>
+                                                 </div>
+                                                 <div class="row">
+                                                      <div class="col-md-12 col-md-offset-1">
+                                                      Data Science Team
+                                                      </div>
+                                                 </div>
+                                                 <div class="row" >
+                                                    <div class="col-md-12 col-md-offset-1">
+                                                    <div class="c100 p62 green">
+                                                    <span>3.1</span>
+                                                    <div class="slice">
+                                                    <div class="bar"></div>
+                                                    <div class="fill"></div>
+                                                    </div>
+                                                    </div>
+                                                    </div>
+                                                 </div>
+
+                                              </div>
+                                         </div>
 
 
-
-
-
+                                    </div>
 
                             </div>
+
                         </div>
-    </div>
+       </div>
+
 
 
     <div class="row" >
@@ -539,11 +641,88 @@ hr.style13 {
        </div>
     </div>
 
-</div>
+        <div class="row" >
+        <div class="col-md-6" style="background:white; padding: 10px 10px 10px 10px; border: 0px solid #ccc; border-radius:4px; height:500px" >
+            <div id="user" style="width:500px;height:250px;"></div>
+        </div>
+
+        </div>
 </div>
 
 
 <script>
+
+var trace1 = {
+  x: ['06-06-2017', '07-06-2017', '08-06-2017', '09-06-2017','10-06-2017','11-06-2017','12-06-2017'],
+  y: [9.5, 10.25, 9.75, 9,8.5,8.25,9.15],
+  type: 'scatter',
+  opacity: 0.75,
+  mode: 'lines+markers',
+  marker: {
+    color: 'rgb(128, 0, 128)',
+    size: 10
+  },
+  line: {
+    color: 'rgb(128, 0, 128)',
+    width: 2
+  }
+
+};
+
+var trace2 = {
+  x: ['06-06-2017', '07-06-2017', '08-06-2017', '09-06-2017','10-06-2017','11-06-2017','12-06-2017'],
+  y: [200,300,275,300,400,500,250],
+  yaxis: 'y2',
+  type: 'bar',
+  color: 'rgb(44, 160, 101)',
+  opacity: 0.5,
+
+
+};
+
+var trace3 = {
+  x: ['06-06-2017', '07-06-2017', '08-06-2017', '09-06-2017','10-06-2017','11-06-2017','12-06-2017'],
+  y: [400,300,325,300,200,100,350],
+  yaxis: 'y2',
+  type: 'bar',
+  color: 'rgb(44, 160, 101)',
+  opacity: 0.5,
+
+
+};
+
+var layout = {
+      title: "Daily swipe timings ",
+      yaxis: {title: "Swipe Timings"},       // set the y axis title
+      xaxis: {
+        showgrid: false,                  // remove the x-axis grid lines
+        tickformat: "%B, %Y"              // customize the date format to "month, day"
+      },
+      yaxis2: {
+      title: 'yaxis2 title',
+      titlefont: {color: 'rgb(148, 103, 189)'},
+      tickfont: {color: 'rgb(148, 103, 189)'},
+      overlaying: 'y',
+      side: 'right',
+      legend : {
+              x: 1.5,
+              y: 1
+
+              }
+
+     },
+
+       height: 450,
+       width: 600,
+       barmode : 'stack'
+    };
+
+var data = [trace1, trace2,trace3];
+
+
+
+Plotly.newPlot('user', data, layout);
+
 Plotly.d3.csv('/static/simulated_swipe_times.csv', function(rows){
     var trace1 = {
       type: 'scatter',                    // set the chart type
@@ -605,9 +784,157 @@ Plotly.d3.csv('/static/simulated_swipe_times.csv', function(rows){
 
 });
 
+//------------------------------------------------------------------------------
+
+Plotly.d3.csv('/static/swipe_histograms1.csv', function(rows){
+
+    var trace1 = {
+        x: rows.map(function(row){          // set the x-data
+            return row['Time'];
+        }),
+        y: rows.map(function(row){          // set the y-data
+            return row['Swipe_In_All_Old'];
+        }),
+        name: 'Swipe In: Country (May)',
+        autobinx: true,
+        histnorm: "count",
+        marker: {
+            color: "rgba(255, 65, 54, 0.7)",
+            line: {
+            color:  "rgba(255, 65, 54, 1)",
+            width: 1
+            }
+        },
+        opacity: 0.75,
+        type: "bar",
+
+    };
+
+    var trace2 = {
+        x: rows.map(function(row){          // set the x-data
+            return row['Time'];
+        }),
+        y: rows.map(function(row){          // set the x-data
+            return row['Swipe_Out_All_Old'];
+        }),
+        autobinx: true,
+        marker: {
+                color: "rgba(255, 65, 54, 0.7)",
+                line: {
+                    color:  "rgba(255, 65, 54, 1)",
+                    width: 1
+                }
+        },
+        name: "Swipe Out: Company(May)",
+        opacity: 0.75,
+        type: "bar",
+
+    };
+
+    var trace3 = {
+        x: rows.map(function(row){          // set the x-data
+            return row['Time'];
+        }),
+        y: rows.map(function(row){          // set the x-data
+            return row['swipe_In_All'];
+        }),
+        autobinx: true,
+        marker: {
+                color: "rgba(44, 160, 101, 0.7)",
+                line: {
+                    color:  "rgba(44, 160, 101,1)",
+                    width: 1
+                }
+        },
+        name: "Swipe In: Company(June)",
+        opacity: 0.75,
+        type: "bar",
+
+    };
+
+    var trace4 = {
+        x: rows.map(function(row){          // set the x-data
+            return row['Time'];
+        }),
+        y: rows.map(function(row){          // set the x-data
+            return row['Swipe_Out_All'];
+        }),
+        autobinx: true,
+        marker: {
+                color: "rgba(44, 160, 101, 0.7)",
+                line: {
+                    color:  "rgba(44, 160, 101,1)",
+                    width: 1
+                }
+        },
+        name: "Swipe Out: Company (June)",
+        opacity: 0.75,
+        type: "bar",
+
+    };
+
+    var data = [trace1, trace2, trace3, trace4];
+    var layout = {
+        bargap: 0.05,
+        bargroupgap: 0.2,
+        barmode: "overlay",
+        title:"Swipe Timings Trends",
+        xaxis: {title: "Swipe Timings"},
+        yaxis: {title: "Number of Employees"},
+        height: 450,
+        width: 600
+    };
+Plotly.newPlot('time_hist_comp', data, layout);
+});
+
+//------------------------------------------------------------------------------
+var trace1 = {
+  x: [4.5, 4, 3.2, 2.7],
+  y: [4.5, 4.5, 4.3, 4],
+  mode: 'markers+text',
+  text: ['May', 'June', 'July', 'August'],
+  textfont : {
+    family:'Times New Roman'
+  },
+  textposition: 'bottom center',
+  marker: {
+    color: ['rgb(93, 164, 214)', 'rgb(255, 144, 14)',  'rgb(44, 160, 101)', 'rgb(255, 65, 54)'],
+    opacity: [1, 0.8, 0.6, 0.4],
+    size: [40, 40, 40, 40]
+  }
+};
+
+var trace2 = {
+  x: [0],
+  y: [0],
+  mode: 'scatter',
+
+  marker: {
+    color: 'rgb(93, 164, 214)',
+    opacity: [0]
+
+  }
+};
 
 
-Plotly.d3.csv('/static/swipe_histograms.csv', function(rows){
+var data = [trace1,trace2];
+
+var layout = {
+  title:"Traffic Footprint Score",
+  xaxis: {title: "Company Traffic Footprint Score"},
+  yaxis: {title: "City Traffic Footprint Score"},
+
+  showlegend: false,
+  height: 450,
+  width: 600
+
+};
+
+Plotly.newPlot('marker_comp', data, layout);
+
+//------------------------------------------------------------------------------
+
+Plotly.d3.csv('/static/swipe_histograms1.csv', function(rows){
 
     var trace1 = {
         x: rows.map(function(row){          // set the x-data
@@ -616,22 +943,44 @@ Plotly.d3.csv('/static/swipe_histograms.csv', function(rows){
         y: rows.map(function(row){          // set the y-data
             return row['Swipe_In_1'];
         }),
-        name: 'Swipe In: PS Team',
+        name: 'Swipe In: DS Team',
         autobinx: true,
         histnorm: "count",
         marker: {
-            color: "rgba((93, 164, 214, 0.7)",
+            color: "rgba(93, 164, 214, 0.7)",
             line: {
-            color:  "rgba((93, 164, 214, 1)",
+            color:  "rgba(93, 164, 214, 1)",
             width: 1
             }
         },
-        opacity: 0.5,
+        opacity: 0.75,
         type: "bar",
 
     };
 
     var trace2 = {
+        x: rows.map(function(row){          // set the x-data
+            return row['Time'];
+        }),
+        y: rows.map(function(row){          // set the y-data
+            return row['Swipe_Out_1'];
+        }),
+        name: 'Swipe Out: DS Team',
+        autobinx: true,
+        histnorm: "count",
+        marker: {
+            color: "rgba(93, 164, 214, 0.7)",
+            line: {
+            color:  "rgba(93, 164, 214, 1)",
+            width: 1
+            }
+        },
+        opacity: 0.75,
+        type: "bar",
+
+    };
+
+    var trace3 = {
         x: rows.map(function(row){          // set the x-data
             return row['Time'];
         }),
@@ -646,13 +995,34 @@ Plotly.d3.csv('/static/swipe_histograms.csv', function(rows){
                     width: 1
                 }
         },
-        name: "Swipe In: DS Team",
+        name: "Swipe In: Sales Team",
         opacity: 0.75,
         type: "bar",
 
     };
 
-    var trace3 = {
+    var trace4 = {
+        x: rows.map(function(row){          // set the x-data
+            return row['Time'];
+        }),
+        y: rows.map(function(row){          // set the x-data
+            return row['Swipe_Out_2'];
+        }),
+        autobinx: true,
+        marker: {
+                color: "rgba(255, 144, 14,, 0.7)",
+                line: {
+                    color:  "rgba(255, 144, 14,, 1)",
+                    width: 1
+                }
+        },
+        name: "Swipe Out: Sales Team",
+        opacity: 0.75,
+        type: "bar",
+
+    };
+
+    var trace5 = {
         x: rows.map(function(row){          // set the x-data
             return row['Time'];
         }),
@@ -663,54 +1033,140 @@ Plotly.d3.csv('/static/swipe_histograms.csv', function(rows){
         marker: {
                 color: "rgba(44, 160, 101, 0.7)",
                 line: {
-                    color:  "rgbargb(44, 160, 101,1)",
+                    color:  "rgba(44, 160, 101,1)",
                     width: 1
                 }
         },
-        name: "Swipe In: Sales Team",
+        name: "Swipe In: PS Team",
+        opacity: 0.75,
+        type: "bar",
+
+    };
+
+    var trace6 = {
+        x: rows.map(function(row){          // set the x-data
+            return row['Time'];
+        }),
+        y: rows.map(function(row){          // set the x-data
+            return row['Swipe_Out_3'];
+        }),
+        autobinx: true,
+        marker: {
+                color: "rgba(44, 160, 101, 0.7)",
+                line: {
+                    color:  "rgba(44, 160, 101,1)",
+                    width: 1
+                }
+        },
+        name: "Swipe In: PS Team",
+        opacity: 0.75,
+        type: "bar",
+
+    };
+
+    var trace7 = {
+        x: rows.map(function(row){          // set the x-data
+            return row['Time'];
+        }),
+        y: rows.map(function(row){          // set the x-data
+            return row['Swipe_In_4'];
+        }),
+        autobinx: true,
+        marker: {
+                color: "rgba(255, 65, 54, 0.7)",
+                line: {
+                    color:  "rgba(255, 65, 54,1)",
+                    width: 1
+                }
+        },
+        name: "Swipe In: Marketing Team",
+        opacity: 0.75,
+        type: "bar",
+
+    };
+    var trace8 = {
+        x: rows.map(function(row){          // set the x-data
+            return row['Time'];
+        }),
+        y: rows.map(function(row){          // set the x-data
+            return row['Swipe_Out_4'];
+        }),
+        autobinx: true,
+        marker: {
+                color: "rgba(255, 65, 54, 0.7)",
+                line: {
+                    color:  "rgba(255, 65, 54,1)",
+                    width: 1
+                }
+        },
+        name: "Swipe Out: Marketing Team",
         opacity: 0.75,
         type: "bar",
 
     };
 
 
-    var data = [trace1, trace2, trace3];
+    var data = [trace1, trace2, trace3, trace4, trace5,trace6,trace7,trace8];
     var layout = {
         bargap: 0.05,
         bargroupgap: 0.2,
         barmode: "overlay",
-        title: "Time In - Time Out Histograms",
-        xaxis: {title: "Value"},
-        yaxis: {title: "Count"},
+        title:"Swipe Timings Trends across Teams",
+        xaxis: {title: "Swipe Timings"},
+        yaxis: {title: "Number of Employees"},
         height: 450,
         width: 600
     };
-Plotly.newPlot('time-hist', data, layout);
+Plotly.newPlot('time_hist_teams', data, layout);
 });
 
+//------------------------------------------------------------------------------
 var trace1 = {
-  x: [1, 2, 3, 4],
-  y: [10, 11, 12, 13],
-  mode: 'markers',
+  x: [4.5, 4, 3.2, 2.7],
+  y: [4.5, 4.5, 4.3, 4],
+  mode: 'markers+text',
+  text: ['DS', 'Sales ', 'PS', 'Marketing'],
+  textfont : {
+    family:'Times New Roman'
+  },
+  textposition: 'bottom center',
   marker: {
     color: ['rgb(93, 164, 214)', 'rgb(255, 144, 14)',  'rgb(44, 160, 101)', 'rgb(255, 65, 54)'],
     opacity: [1, 0.8, 0.6, 0.4],
-    size: [40, 60, 80, 100]
+    size: [45, 18, 21, 36]
   }
 };
 
-var data = [trace1];
+var trace2 = {
+  x: [0],
+  y: [0],
+  mode: 'scatter',
+
+  marker: {
+    color: 'rgb(93, 164, 214)',
+    opacity: [0]
+
+  }
+};
+
+
+var data = [trace1,trace2];
 
 var layout = {
-  title: 'Marker Size and Color',
+  title:"Traffic Footprint Score",
+  xaxis: {title: "Team Traffic Footprint Score"},
+  yaxis: {title: "City Traffic Footprint Score"},
+
   showlegend: false,
   height: 450,
   width: 600
 
 };
 
-Plotly.newPlot('bubble1', data, layout);
-Plotly.newPlot('bubble2', data, layout);
+Plotly.newPlot('marker_teams', data, layout);
+
+
+
 
 </script>
 

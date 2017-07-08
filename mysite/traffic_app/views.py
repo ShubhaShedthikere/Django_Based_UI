@@ -24,7 +24,7 @@ class Producer:
                 bootstrap_servers=str("localhost:9092"),
                 retries=int(3),
                 max_request_size=1048576)
-            self.topic = "user-route-details"
+            self.topic = "user_info"
         except:
             print "Cannot start kafka producer"
             exit()
