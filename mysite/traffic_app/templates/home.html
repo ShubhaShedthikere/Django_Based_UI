@@ -358,6 +358,44 @@ hr.style13 {
 	box-shadow: 0 10px 10px -10px #8c8b8b inset;
 }
 
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 500px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 50%; /* Full width */
+    height: 50%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+}
+
+/* The Close Button */
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
 
 </style>
 </head>
@@ -655,7 +693,7 @@ hr.style13 {
                                     <input type="text" name="starting_point" id="start" placeholder="Starting Address" />
                                     <input type="text" name="ending_point" id="end" placeholder="Destination Address" />
                                     <input type="text" name="mobile_no" id="mobile" placeholder="Mobile Number" />
-                                    <input type="button"  onclick="form_submit()" value="Submit" />
+                                    <input type="button"  id="myBtn" onclick="myFunction()" value="Submit" />
 
                                     </form>
 
@@ -666,7 +704,17 @@ hr.style13 {
 
 
 
+
                                 </div>
+                                <div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <div class="close">&times;</div>
+    <p>Thank you for registering with us. You will receive updated on traffic congestion in this route.</p>
+  </div>
+
+</div>
                                 <div class="col-md-8">
                                 <div id="map"></div>
 
@@ -706,12 +754,19 @@ hr.style13 {
         });
       }
 
+      function myFunction() {
+    alert("Thank you for registering with us. You will receive SMS alert on traffic status in your route!");
+    form_submit()
+    }
+
       function form_submit() {
 
       console.log("in submit")
+
+
       var frm1 = document.getElementById('form1')
       console.log(frm1)
-      frm1.action = 'callbacks'
+
       frm1.submit()
       }
 
@@ -748,6 +803,18 @@ hr.style13 {
 
 
 <script>
+
+
+
+
+
+
+
+
+
+
+
+
 
 var trace1 = {
   x: ['06-06-2017', '07-06-2017', '08-06-2017', '09-06-2017','10-06-2017','11-06-2017','12-06-2017'],
